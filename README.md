@@ -1,87 +1,83 @@
-# Mini-Project-Customer-Support-Analyzer-Ticket-Tracker
-Organizations often struggle to manage incoming customer requests efficiently. Support teams receive a high volume of messages via email, chat, and calls, making it hard to:
+# Mini Project: Ticket Management System
 
-- Track open tickets
-- Assign tickets to the right agent
-- Analyze sentiment (happy, angry, neutral)
-- Prioritize urgent issues
+## Overview
+This mini project is built around a **Product Requirement Document (PRD) + Workflow** to simulate a ticket management system. It demonstrates problem-solving, feature planning, and workflow design, with a small interactive Python script for ticket assignment.
 
-This project helps automate ticket assignment, basic sentiment analysis, and workflow visualization for better customer support management.
+---
+
+## Problem It Solves
+Many organizations struggle with tracking issues, requests, or tasks in a structured way. This project aims to:
+
+- Provide a clear system for logging and assigning tickets.
+- Ensure that issues are tracked and not lost in communication.
+- Help small teams practice PRD-driven development.
 
 ---
 
 ## Features & Functional Requirements
 
 ### Features
-1. **Ticket Creation:** Automatically capture customer requests.
-2. **Sentiment Analysis:** Classify messages as positive, neutral, or negative.
-3. **Automated Assignment:** Assign tickets to available agents.
-4. **Status Tracking:** Keep track of pending, in-progress, and resolved tickets.
-5. **Basic Reporting:** Count of tickets per agent and sentiment summary.
+- Add new tickets with title, description, and priority.
+- Assign tickets to team members.
+- Track ticket status: Open, In Progress, Completed.
+- View all tickets in a structured format.
 
 ### Functional Requirements
-- Python backend for ticket management
-- Optional integration with CSV or JSON to store ticket data
-- Simple command-line interface to simulate ticket workflow
-- Visualization of workflow using a diagram
+1. Users can create a new ticket with necessary details.
+2. Users can assign tickets to a specific team member.
+3. Users can update the status of tickets.
+4. The system should allow listing all tickets and filtering by status or assignee.
 
 ---
 
 ## Workflow Diagram
+Below is the workflow for the ticket system:
 
-![Ticket Workflow Diagram](workflow_diagram.png)
+![Workflow Diagram](./images/workflow-diagram.png)  
+*Note: Replace this image path with your actual workflow diagram.*
 
-*Workflow Explanation:*
-1. Customer sends a message.
-2. Message is analyzed for sentiment.
-3. Ticket is created in the system.
-4. Ticket is assigned to an available agent.
-5. Agent updates ticket status (in-progress → resolved).
-6. System generates basic reports.
+**Workflow Steps:**
+1. Ticket Creation → 2. Assignment → 3. Progress Tracking → 4. Completion → 5. Reporting
 
 ---
 
-## How I Approached PRD Creation
-- **Step 1: Define Problem** – Identified inefficiencies in customer support ticket management.
-- **Step 2: List Requirements** – Captured both functional (ticket assignment, reporting) and non-functional (simple CLI, Python-based) requirements.
-- **Step 3: Prioritize Features** – Focused on core workflow: capture → analyze → assign → track → report.
-- **Step 4: Visualize Workflow** – Created a workflow diagram to simplify development steps.
-- **Step 5: Implement Prototype** – Built a small Python script to simulate ticket creation and assignment.
+## PRD Approach
+To create the PRD:
+- Identified the **problem** with ticket management in small teams.
+- Defined **user stories**: e.g., "As a team lead, I want to assign tickets to team members so that work is distributed efficiently."
+- Listed **features and functional requirements** clearly.
+- Drew a **workflow diagram** to visualize the ticket lifecycle.
+- Added a **small interactive Python script** for demonstration.
 
 ---
 
-## Python Simulation Script
+## Optional Interactive Python Script
+This script simulates ticket assignment:
 
 ```python
-import random
+# ticket_manager.py
 
-# Sample agents
-agents = ["Alice", "Bob", "Charlie"]
+tickets = []
 
-# Sample tickets
-tickets = [
-    {"id": 1, "message": "My software crashed!", "status": "pending"},
-    {"id": 2, "message": "Need help with login.", "status": "pending"},
-    {"id": 3, "message": "Feature request: dark mode.", "status": "pending"},
-]
+def create_ticket(title, assignee):
+    ticket = {"id": len(tickets)+1, "title": title, "assignee": assignee, "status": "Open"}
+    tickets.append(ticket)
+    print(f"Ticket created: {ticket}")
 
-# Simple sentiment analysis (simulated)
-def analyze_sentiment(message):
-    if "crash" in message or "error" in message:
-        return "negative"
-    elif "help" in message:
-        return "neutral"
-    else:
-        return "positive"
+def list_tickets():
+    print("\nAll Tickets:")
+    for t in tickets:
+        print(f"{t['id']}. {t['title']} - {t['assignee']} - {t['status']}")
 
-# Assign tickets to random agents
-for ticket in tickets:
-    ticket["sentiment"] = analyze_sentiment(ticket["message"])
-    ticket["assigned_to"] = random.choice(agents)
-    ticket["status"] = "in-progress"
-    print(f"Ticket {ticket['id']} assigned to {ticket['assigned_to']} | Sentiment: {ticket['sentiment']} | Status: {ticket['status']}")
+def update_status(ticket_id, status):
+    for t in tickets:
+        if t["id"] == ticket_id:
+            t["status"] = status
+            print(f"Ticket {ticket_id} status updated to {status}")
 
-# Mark tickets as resolved
-for ticket in tickets:
-    ticket["status"] = "resolved"
-    print(f"Ticket {ticket['id']} resolved by {ticket['assigned_to']}")
+# Example usage
+create_ticket("Fix login bug", "Alice")
+create_ticket("Update README", "Bob")
+list_tickets()
+update_status(1, "In Progress")
+list_tickets()
