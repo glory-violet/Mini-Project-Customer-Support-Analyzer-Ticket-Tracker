@@ -33,7 +33,7 @@ Many organizations struggle with tracking issues, requests, or tasks in a struct
 ## Workflow Diagram
 Below is the workflow for the ticket system:
 
-<img width="336" height="575" alt="Image" src="https://github.com/user-attachments/assets/22cdb8e5-bcc0-4d2f-bfee-9c7f8b2f1012" />*Note: Replace this image path 
+<img width="336" height="575" alt="Image" src="https://github.com/user-attachments/assets/22cdb8e5-bcc0-4d2f-bfee-9c7f8b2f1012" />
 
 **Workflow Steps:**
 1. Ticket Creation → 2. Assignment → 3. Progress Tracking → 4. Completion → 5. Reporting
